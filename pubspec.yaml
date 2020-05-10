@@ -1,8 +1,8 @@
 name: ffloat
-description: A new Flutter plugin.
-version: 0.0.1
-author:
-homepage:
+description: FFloat, although simple and easy to use, can satisfy all your imagination of the floating layer.
+version: 1.0.0
+author: CoorChice<coorchice.cb@alibaba-inc.com>
+homepage: https://github.com/Fliggy-Mobile/ffloat
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
