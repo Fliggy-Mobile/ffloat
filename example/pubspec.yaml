@@ -25,9 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   fsuper: ^0.1.5
   fbutton: ^1.0.4
-  fradio:
-    git:
-      url: git@gitlab.alibaba-inc.com:fapi/fradio.git
+  fradio: ^1.0.0
 
 dev_dependencies:
   flutter_test:
