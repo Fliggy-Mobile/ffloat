@@ -85,9 +85,9 @@
 |builder|FloatBuilder|是|null|通过 [FloatBuilder] 返回 [FFloat] 的内容组件。如果只更新内容区域的话，通过 `setter((){})` 进行|
 |color|Color|否|`Color(0x7F000000)`|[FFloat] 的颜色|
 |gradient|Gradient|否|null|渐变色。会覆盖 color|
-|child|Widget|否|null|锚点组件|
+|anchor|Widget|否|null|锚点组件|
 |location|Offset|否|null|位置。通过 [location] 指定 [FFloat] 的位置后，基于锚点确定位置的所有配置将失效|
-|alignment|FFloatAlignment|否|FFloatAlignment.topCenter|[FFloat] 基于 [child] 锚点元素的相对位置。|
+|alignment|FFloatAlignment|否|FFloatAlignment.topCenter|[FFloat] 基于 [anchor] 锚点元素的相对位置。|
 |margin|EdgeInsets|否|EdgeInsets.zero|[FFloat] 基于相对确定锚定点的间距|
 |padding|EdgeInsets|否|null|[FFloat] 内部间距|
 |canTouchOutside|bool|否|false|点击 [FFloat] 范围外区域是否隐藏。|
@@ -139,11 +139,11 @@ FFloat(
   corner: FFloatCorner.all(10),
   alignment: floatAlignment1,
   canTouchOutside: false,
-  child: buildChild1(),
+  anchor: buildAnchor1(),
 )
 ```
 
-**FFloat** 能够去包裹一个正常的组件（即将正常组件赋值给 **FFloat** 的 `child` 参数），使得该组件具备点击弹出浮层的能力。
+**FFloat** 能够去包裹一个正常的组件（即将正常组件赋值给 **FFloat** 的 `anchor` 参数），使得该组件具备点击弹出浮层的能力。
 
 而且 **FFloat** 不会对原本的组件产生任何的不利影响，这很神奇吧！
 
@@ -162,7 +162,7 @@ controller.show();
 controller.dismiss();
 ```
 
-**FFloat** 足够的聪明，它能够根据 `child` 的位置自动的确定自己应该出现在什么地方。通过 `alignment` 和 `margin`，你能够以难以置信的简单的方式调整浮层的位置，直到你认为这可以了。
+**FFloat** 足够的聪明，它能够根据 `anchor` 的位置自动的确定自己应该出现在什么地方。通过 `alignment` 和 `margin`，你能够以难以置信的简单的方式调整浮层的位置，直到你认为这可以了。
 
 这是一种前所未有的改变 👍！
 
@@ -183,9 +183,9 @@ FFloat(
           /// update something
         });
       }
-      child: buildWidgte());
+      anchor: buildWidgte());
   },
-  child: buildChild()
+  anchor: buildAnchor()
 )
 ```
 
@@ -205,7 +205,7 @@ FFloat(
   corner: FFloatCorner.all(6),
   margin: EdgeInsets.only(bottom: 10),
   padding: EdgeInsets.only(left: 9, right: 9, top: 3, bottom: 3),
-  child: buildChild(),
+  anchor: buildAnchor(),
   canTouchOutside: false,
   autoDismissDuration: Duration(milliseconds: 2000),
 ),
@@ -220,7 +220,7 @@ FFloat(
   backgroundColor: Colors.black26,
   corner: FFloatCorner.all(20),
   margin: EdgeInsets.only(bottom: 10, left: 10),
-  child: buildChild(),
+  anchor: buildAnchor(),
   alignment: FFloatAlignment.topRight,
   triangleAlignment: TriangleAlignment.end,
   triangleOffset: Offset(-39, 0),
@@ -257,7 +257,7 @@ FFloat(
   controller: controller3_1,
   alignment: FFloatAlignment.bottomLeft,
   hideTriangle: true,
-  child: buildChild(),
+  anchor: buildAnchor(),
 ),
 
 FFloat(
@@ -274,7 +274,7 @@ FFloat(
   triangleOffset: Offset(10, 10),
   triangleWidth: 20,
   triangleHeight: 15,
-  child: buildChild(),
+  anchor: buildAnchor(),
 ),
 ```
 
@@ -300,7 +300,7 @@ FFloat(
   (setter) {
     return buildContent();
   },
-  child: buildChild(),
+  anchor: buildAnchor(),
   controller: controller4,
   color: Colors.white,
   corner: FFloatCorner.all(6),
@@ -332,7 +332,7 @@ FFloat(
 
 FFloat(
   (setter) => buildContent(),
-  child: buildChild(),
+  anchor: buildAnchor(),
   controller: controller5,
   gradient: SweepGradient(
     colors: [

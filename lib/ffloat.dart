@@ -68,11 +68,11 @@ enum FFloatAlignment {
 /// Used to return a [Widget], if only the content area is updated, through setter (() {})
 typedef FloatBuilder = Widget Function(StateSetter setter);
 
-/// [FFloat] 能够在屏幕的任意位置浮出一个组件。甚至可以基于 [child] 锚点组件来动态的确定漂浮组件的位置。
+/// [FFloat] 能够在屏幕的任意位置浮出一个组件。甚至可以基于 [anchor] 锚点组件来动态的确定漂浮组件的位置。
 /// [FFloat] 同时提供了绝妙的配置选项。圆角、描边、背景、偏移、装饰三角。
 /// [FFloat] 设置了 [FFloatController] 控制器，可以方便的随时对漂浮组件进行控制。
 ///
-/// [FFloat] can float a component anywhere on the screen. You can even dynamically determine the position of the floating component based on the [child] anchor component.
+/// [FFloat] can float a component anywhere on the screen. You can even dynamically determine the position of the floating component based on the [anchor] anchor component.
 /// [FFloat] also provides wonderful configuration options. Fillet, stroke, background, offset, decorative triangle.
 /// [FFloat] The [FFloatController] controller is set, which can easily control the floating component at any time.
 class FFloat extends StatefulWidget {
@@ -91,16 +91,16 @@ class FFloat extends StatefulWidget {
   /// 锚点组件
   ///
   /// Anchor component
-  final Widget child;
+  final Widget anchor;
 
   /// 位置。通过 [location] 指定 [FFloat] 的位置后，基于锚点确定位置的所有配置将失效。
   ///
   /// position. After specifying the location of [FFloat] through [location], all configurations that determine the location based on the anchor point will be invalid.
   final Offset location;
 
-  /// [FFloat] 基于 [child] 锚点元素的相对位置。
+  /// [FFloat] 基于 [anchor] 锚点元素的相对位置。
   ///
-  /// [FFloat] Based on the relative position of the [child] anchor element.
+  /// [FFloat] Based on the relative position of the [anchor] anchor element.
   final FFloatAlignment alignment;
 
   /// [FFloat] 基于相对确定锚定点的间距
@@ -209,7 +209,7 @@ class FFloat extends StatefulWidget {
 
   FFloat(
     this.builder, {
-    this.child,
+    this.anchor,
     this.location,
     this.margin = EdgeInsets.zero,
     this.triangleWidth = 12,
@@ -278,8 +278,8 @@ class FFloat extends StatefulWidget {
 
 class _FFloatState extends State<FFloat> {
   GlobalKey key = GlobalKey();
-  Offset childLocation;
-  Size childSize;
+  Offset anchorLocation;
+  Size anchorSize;
 
   _FFloat _float;
 
@@ -333,16 +333,16 @@ class _FFloatState extends State<FFloat> {
       Offset location = box?.localToGlobal(Offset.zero);
       Size size = box?.size;
       bool needUpdate = false;
-      if (location != null && location != childLocation) {
+      if (location != null && location != anchorLocation) {
         needUpdate = true;
-        childLocation = location;
+        anchorLocation = location;
       }
-      if (size != null && size != childSize) {
+      if (size != null && size != anchorSize) {
         needUpdate = true;
-        childSize = size;
+        anchorSize = size;
       }
       if (_float != null && needUpdate) {
-        _float.update(childSize, childLocation);
+        _float.update(anchorSize, anchorLocation);
       }
       postUpdateCallback();
     });
@@ -418,7 +418,7 @@ class _FFloatState extends State<FFloat> {
         builder: (context, _) {
           return GestureDetector(
             onTap: handleOnTap,
-            child: widget.child,
+            child: widget.anchor,
           );
         },
       );

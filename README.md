@@ -85,9 +85,9 @@
 |builder|FloatBuilder|true|null|[FloatBuilder] returns the content component of [FFloat]. If only the content area is updated, proceed with `setter (() {})`|
 |color|Color|false|`Color(0x7F000000)`|[FFloat] colors|
 |gradient|Gradient|false|null|Gradient. Will overwrite color|
-|child|Widget|false|null|Anchor element|
+|anchor|Widget|false|null|Anchor element|
 |location|Offset|false|null|position. After specifying the location of [FFloat] through [location], all configurations that determine the location based on the anchor point will be invalid|
-|alignment|FFloatAlignment|false|FFloatAlignment.topCenter|[FFloat] Based on the relative position of the [child] anchor element.|
+|alignment|FFloatAlignment|false|FFloatAlignment.topCenter|[FFloat] Based on the relative position of the [anchor] anchor element.|
 |margin|EdgeInsets|false|EdgeInsets.zero|[FFloat] Determine the distance between anchor points based on relative|
 |padding|EdgeInsets|false|null|[FFloat] Internal spacing|
 |canTouchOutside|bool|false|false|Click [FFloat] to hide the area outside the range.|
@@ -139,11 +139,11 @@ FFloat(
   corner: FFloatCorner.all(10),
   alignment: floatAlignment1,
   canTouchOutside: false,
-  child: buildChild1(),
+  anchor: buildAnchor1(),
 )
 ```
 
-**FFloat** can wrap a normal component (that is, assign the normal component to the `child` parameter of **FFloat**), so that the component has the ability to click to pop up the floating layer.
+**FFloat** can wrap a normal component (that is, assign the normal component to the `anchor` parameter of **FFloat**), so that the component has the ability to click to pop up the floating layer.
 
 And **FFloat** will not have any adverse effect on the original components, which is amazing!
 
@@ -163,7 +163,7 @@ controller.show();
 controller.dismiss();
 ```
 
-**FFloat** is smart enough to automatically determine where it should appear based on the position of `child`. With `alignment` and` margin`, you can adjust the position of the floating layer in an incredibly simple way until you think it is ok.
+**FFloat** is smart enough to automatically determine where it should appear based on the position of `anchor`. With `alignment` and` margin`, you can adjust the position of the floating layer in an incredibly simple way until you think it is ok.
 
 This is an unprecedented change 👍!
 
@@ -184,9 +184,9 @@ FFloat(
           /// update something
         });
       }
-      child: buildWidgte());
+      anchor: buildWidgte());
   },
-  child: buildChild()
+  anchor: buildAnchor()
 )
 ```
 
@@ -206,7 +206,7 @@ FFloat(
   corner: FFloatCorner.all(6),
   margin: EdgeInsets.only(bottom: 10),
   padding: EdgeInsets.only(left: 9, right: 9, top: 3, bottom: 3),
-  child: buildChild(),
+  anchor: buildAnchor(),
   canTouchOutside: false,
   autoDismissDuration: Duration(milliseconds: 2000),
 ),
@@ -221,7 +221,7 @@ FFloat(
   backgroundColor: Colors.black26,
   corner: FFloatCorner.all(20),
   margin: EdgeInsets.only(bottom: 10, left: 10),
-  child: buildChild(),
+  anchor: buildAnchor(),
   alignment: FFloatAlignment.topRight,
   triangleAlignment: TriangleAlignment.end,
   triangleOffset: Offset(-39, 0),
@@ -258,7 +258,7 @@ FFloat(
   controller: controller3_1,
   alignment: FFloatAlignment.bottomLeft,
   hideTriangle: true,
-  child: buildChild(),
+  anchor: buildAnchor(),
 ),
 
 FFloat(
@@ -275,7 +275,7 @@ FFloat(
   triangleOffset: Offset(10, 10),
   triangleWidth: 20,
   triangleHeight: 15,
-  child: buildChild(),
+  anchor: buildAnchor(),
 ),
 ```
 
@@ -301,7 +301,7 @@ FFloat(
   (setter) {
     return buildContent();
   },
-  child: buildChild(),
+  anchor: buildAnchor(),
   controller: controller4,
   color: Colors.white,
   corner: FFloatCorner.all(6),
@@ -333,7 +333,7 @@ Our original intention was to help developers build beautiful applications more 
 
 FFloat(
   (setter) => buildContent(),
-  child: buildChild(),
+  anchor: buildAnchor(),
   controller: controller5,
   gradient: SweepGradient(
     colors: [

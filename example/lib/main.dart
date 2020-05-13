@@ -208,7 +208,7 @@ class _FFloatPage extends State<FFloatPage> {
                   rightBottomCorner: 35),
               triangleWidth: 30,
               triangleHeight: 10,
-              child: Image.asset(
+              anchor: Image.asset(
                 "assets/airpos.png",
                 width: 60,
               ),
@@ -235,7 +235,7 @@ class _FFloatPage extends State<FFloatPage> {
                   rightBottomCorner: 35),
               triangleWidth: 55,
               triangleHeight: 10,
-              child: Image.asset(
+              anchor: Image.asset(
                 "assets/appletv.png",
                 width: 60,
               ),
@@ -263,7 +263,7 @@ class _FFloatPage extends State<FFloatPage> {
               triangleWidth: 23,
               triangleHeight: 10,
               alignment: FFloatAlignment.leftTop,
-              child: Image.asset(
+              anchor: Image.asset(
                 "assets/iphone.png",
                 width: 80,
               ),
@@ -290,7 +290,7 @@ class _FFloatPage extends State<FFloatPage> {
                   rightBottomCorner: 40),
               triangleWidth: 41,
               triangleHeight: 10,
-              child: Image.asset(
+              anchor: Image.asset(
                 "assets/switch.png",
                 width: 60,
               ),
@@ -318,7 +318,7 @@ class _FFloatPage extends State<FFloatPage> {
               alignment: FFloatAlignment.rightCenter,
               triangleWidth: 19,
               triangleHeight: 10,
-              child: Image.asset(
+              anchor: Image.asset(
                 "assets/watch.png",
                 width: 60,
               ),
@@ -338,7 +338,7 @@ class _FFloatPage extends State<FFloatPage> {
           height: 100,
         );
       },
-      child: FButton(
+      anchor: FButton(
         width: 72,
         height: 30,
         corner: FButtonCorner.all(3),
@@ -421,7 +421,7 @@ class _FFloatPage extends State<FFloatPage> {
               }),
         );
       },
-      child: FButton(
+      anchor: FButton(
         width: 80,
         height: 40,
         onPressed: () {
@@ -523,7 +523,7 @@ class _FFloatPage extends State<FFloatPage> {
             controller: controller3_1,
             alignment: FFloatAlignment.bottomLeft,
             hideTriangle: true,
-            child: FRadio.custom(
+            anchor: FRadio.custom(
               width: 56,
               height: 22,
               value: 0,
@@ -615,7 +615,7 @@ class _FFloatPage extends State<FFloatPage> {
             triangleOffset: Offset(10, 10),
             triangleWidth: 20,
             triangleHeight: 15,
-            child: FRadio.custom(
+            anchor: FRadio.custom(
               width: 38,
               height: 22,
               value: 1,
@@ -708,7 +708,7 @@ class _FFloatPage extends State<FFloatPage> {
             triangleOffset: Offset(10, 10),
             triangleWidth: 20,
             triangleHeight: 15,
-            child: FRadio.custom(
+            anchor: FRadio.custom(
               width: 38,
               height: 22,
               value: 2,
@@ -766,7 +766,7 @@ class _FFloatPage extends State<FFloatPage> {
             corner: FFloatCorner.all(6),
             margin: EdgeInsets.only(bottom: 10),
             padding: EdgeInsets.only(left: 9, right: 9, top: 3, bottom: 3),
-            child: FButton(
+            anchor: FButton(
               width: 72,
               height: 30,
               text: "esc",
@@ -795,7 +795,7 @@ class _FFloatPage extends State<FFloatPage> {
             corner: FFloatCorner.all(6),
             margin: EdgeInsets.only(bottom: 10),
             padding: EdgeInsets.only(left: 9, right: 9, top: 3, bottom: 3),
-            child: FButton(
+            anchor: FButton(
               width: 72,
               height: 30,
               corner: FButtonCorner.all(3),
@@ -850,7 +850,7 @@ class _FFloatPage extends State<FFloatPage> {
         backgroundColor: Colors.black26,
         corner: FFloatCorner.all(20),
         margin: EdgeInsets.only(bottom: 10, left: 10),
-        child: FButton(
+        anchor: FButton(
           width: 72,
           height: 30,
           corner: FButtonCorner.all(3),
@@ -885,7 +885,7 @@ class _FFloatPage extends State<FFloatPage> {
         corner: FFloatCorner.all(10),
         alignment: floatAlignment1,
         canTouchOutside: false,
-        child: buildChild1(),
+        anchor: buildChild1(),
         animDuration: null,
       ),
     );
