@@ -75,6 +75,7 @@ typedef FloatBuilder = Widget Function(StateSetter setter);
 /// [FFloat] can float a component anywhere on the screen. You can even dynamically determine the position of the floating component based on the [anchor] anchor component.
 /// [FFloat] also provides wonderful configuration options. Fillet, stroke, background, offset, decorative triangle.
 /// [FFloat] The [FFloatController] controller is set, which can easily control the floating component at any time.
+// ignore: must_be_immutable
 class FFloat extends StatefulWidget {
   /// 通过 [FloatBuilder] 返回 [FFloat] 的内容组件。
   /// 如果只更新内容区域的话，通过 setter((){}) 进行
@@ -635,6 +636,7 @@ class _FFloat {
   }
 }
 
+// ignore: must_be_immutable
 class _FFloatContent extends StatefulWidget {
   static const Color DefaultColor = Color(0x7F000000);
 
@@ -748,6 +750,14 @@ class _FFloatContentState extends State<_FFloatContent>
         widget.notifier.value == 1 &&
         animationController != null) {
       animationController.reverse(from: 1.0);
+    }
+  }
+
+  void _setState(Function func) {
+    if (mounted && func != null) {
+      setState(() {
+        func();
+      });
     }
   }
 
@@ -1025,6 +1035,7 @@ class _FFloatContentState extends State<_FFloatContent>
             ) +
             offset;
     }
+    return Offset.zero;
   }
 
   double calculateTriangleRotate() {
@@ -1046,6 +1057,7 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightBottom:
         return -pi / 2.0;
     }
+    return pi;
   }
 
   EdgeInsets calculateTriangleOffset() {
@@ -1180,12 +1192,10 @@ class _FTipContentController {
   _FFloatContentState state;
 
   update(Size anchorSize, Offset location) {
-    if (state != null && state.mounted) {
-      state.setState(() {
-        state.anchorSize = anchorSize;
-        state.location = location;
-      });
-    }
+    state?._setState(() {
+      state.anchorSize = anchorSize;
+      state.location = location;
+    });
   }
 
   dispose() {
