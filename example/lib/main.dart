@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:math';
 
 import 'package:fbutton/fbutton.dart';
 import 'package:ffloat_example/color.dart';
@@ -62,14 +63,20 @@ class _FFloatPage extends State<FFloatPage> {
 
   int group_corner_value = -1;
 
+  List<FFloatAlignment> alignmentList;
+
   @override
   void initState() {
     controller1.setStateChangedListener(() {
+      print('controller1.isShow = ${controller1.isShow}');
       if (!controller1.isShow) {
         setState(() {
           floatAlignment1 = randomFloatAlignment(floatAlignment1);
         });
-      } else {}
+      }
+    });
+    controller2_2.setStateChangedListener(() {
+      print('controller2_2.isShow = ${controller2_2.isShow}');
     });
     fileMenuList.add("New Finder Window           ⌘N");
     fileMenuList.add("New Smart Folder              ");
@@ -81,6 +88,21 @@ class _FFloatPage extends State<FFloatPage> {
     clickList.add("iOS");
     clickList.add("Flutter");
     clickList.add("Fuchsia");
+
+    alignmentList = [
+//      FFloatAlignment.topLeft,
+      FFloatAlignment.topCenter,
+//      FFloatAlignment.topRight,
+//      FFloatAlignment.bottomLeft,
+      FFloatAlignment.bottomCenter,
+//      FFloatAlignment.bottomRight,
+//      FFloatAlignment.leftTop,
+      FFloatAlignment.leftCenter,
+//      FFloatAlignment.leftBottom,
+//      FFloatAlignment.rightTop,
+      FFloatAlignment.rightCenter,
+//      FFloatAlignment.rightBottom,
+    ];
     super.initState();
   }
 
@@ -161,13 +183,47 @@ class _FFloatPage extends State<FFloatPage> {
             buildMiddleMargin(),
             buildMiddleMargin(),
             buildMiddleMargin(),
+
+            buildTitle("Absolute Position Demo"),
             buildMiddleMargin(),
             buildMiddleMargin(),
+
+            /// Absolute Position Demo
+            buildAbsolutePositionDemo(context),
             buildMiddleMargin(),
             buildMiddleMargin(),
             buildMiddleMargin(),
           ],
         ),
+      ),
+    );
+  }
+
+  GestureDetector buildAbsolutePositionDemo(BuildContext context) {
+    return GestureDetector(
+      onPanDown: (details) {
+        FFloat(
+          (setter) => Text(
+            "Hello",
+            style: TextStyle(color: Colors.white),
+          ),
+          location:
+              Offset(details.globalPosition.dx, details.globalPosition.dy),
+          autoDismissDuration: Duration(milliseconds: 2000),
+          padding: EdgeInsets.all(6.0),
+          corner: FFloatCorner.all(6.0),
+          canTouchOutside: false,
+          alignment: randomAlignment(),
+        ).show(context);
+      },
+      child: FSuper(
+        width: 300,
+        height: 200,
+        backgroundColor: Colors.white,
+        shadowColor: mainShadowColor,
+        shadowOffset: Offset(3.0, 3.0),
+        shadowBlur: 5.0,
+        corner: Corner.all(6.0),
       ),
     );
   }
@@ -816,39 +872,44 @@ class _FFloatPage extends State<FFloatPage> {
       child1Alignment: Alignment.centerLeft,
       child1Margin: EdgeInsets.only(left: 20),
       child2: FFloat(
-        (_) => FSuper(
-          width: 200,
-          height: 40,
-          child1Alignment: Alignment.centerLeft,
-          child1: Icon(Icons.search, color: Colors.white, size: 18),
-          child1Margin: EdgeInsets.only(left: 9),
-          child2: SizedBox(
-            width: 150,
-            height: 35,
-            child: TextField(
-              maxLines: 1,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: "SEARCH",
-                hintStyle: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 15,
+        (_) => Container(
+          height: 50,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(width: 12.0),
+              Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              const SizedBox(width: 9.0),
+              Container(
+                width: 200,
+                height: 50,
+                child: TextField(
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "SEARCH",
+                    hintStyle: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 15,
+                    ),
+                  ),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  cursorColor: Colors.white30,
                 ),
               ),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-              ),
-              cursorColor: Colors.white30,
-            ),
+            ],
           ),
-          child2Alignment: Alignment.centerLeft,
-          child2Margin: EdgeInsets.only(left: (9.0 + 18.0 + 9.0)),
         ),
         controller: controller2_2,
         color: Colors.black.withOpacity(0.95),
         backgroundColor: Colors.black26,
-        corner: FFloatCorner.all(20),
+        corner: FFloatCorner.all(25),
         margin: EdgeInsets.only(bottom: 10, left: 10),
         anchor: FButton(
           width: 72,
@@ -886,7 +947,6 @@ class _FFloatPage extends State<FFloatPage> {
         alignment: floatAlignment1,
         canTouchOutside: false,
         anchor: buildChild1(),
-        animDuration: null,
       ),
     );
   }
@@ -1000,5 +1060,9 @@ class _FFloatPage extends State<FFloatPage> {
         return FFloatAlignment.topLeft;
     }
     return FFloatAlignment.topCenter;
+  }
+
+  FFloatAlignment randomAlignment() {
+    return alignmentList[Random().nextInt(alignmentList.length)];
   }
 }

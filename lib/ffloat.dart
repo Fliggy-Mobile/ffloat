@@ -360,7 +360,6 @@ class _FFloatState extends State<FFloat> {
 
   @override
   void didUpdateWidget(FFloat oldWidget) {
-    super.didUpdateWidget(oldWidget);
     if (_float != null) {
       asyncParams();
       if (_float.isShow) {
@@ -372,6 +371,7 @@ class _FFloatState extends State<FFloat> {
         });
       }
     }
+    super.didUpdateWidget(oldWidget);
   }
 
   void asyncParams() {
@@ -428,7 +428,7 @@ class _FFloatState extends State<FFloat> {
 
   void handleOnTap() {
     if (_float != null) {
-      asyncParams();
+//      asyncParams();
       _float.show();
     }
   }
@@ -472,14 +472,12 @@ class _FFloat {
   set isShow(bool value) {
     if (_isShow == value) return;
     _isShow = value;
-    if (controller != null) {
-      controller.isShow = value;
-    }
+    controller?.isShow = value;
   }
 
   Timer dismissTimer;
 
-  _FTipContentController ffloatContentController;
+  _FFloatContentController ffloatContentController;
 
   ValueNotifier<int> notifier;
 
@@ -523,18 +521,16 @@ class _FFloat {
         realDismiss();
       }
     });
-    if (controller != null) {
-      controller._show = () {
-        show();
-      };
-      controller._dismiss = () {
-        dismiss();
-      };
-      controller._rebuildShow = () {
-        rebuildShow();
-      };
-    }
-    ffloatContentController = new _FTipContentController();
+    controller?._show = () {
+      show();
+    };
+    controller?._dismiss = () {
+      dismiss();
+    };
+    controller?._rebuildShow = () {
+      rebuildShow();
+    };
+    ffloatContentController = new _FFloatContentController();
   }
 
   void update(Size anchorSize, Offset location) {
@@ -546,12 +542,8 @@ class _FFloat {
   }
 
   void dispose() {
-    if (controller != null) {
-      controller.dispose();
-    }
-    if (ffloatContentController != null) {
-      ffloatContentController.dispose();
-    }
+    controller?.dispose();
+    ffloatContentController?.dispose();
     if (dismissTimer != null && dismissTimer.isActive) {
       dismissTimer.cancel();
       dismissTimer = null;
@@ -580,7 +572,7 @@ class _FFloat {
         (location != null ? location : childLocation) ?? Offset.zero,
         builder,
         anchorSize: childSize ?? Size.zero,
-        alignment: location != null ? FFloatAlignment.bottomLeft : alignment,
+        alignment: alignment,
         triangleWidth: triangleWidth,
         triangleHeight: triangleHeight,
         triangleOffset: triangleOffset,
@@ -629,6 +621,7 @@ class _FFloat {
   }
 
   void realDismiss() {
+    isShow = false;
     if (_overlayEntry != null) {
       _overlayEntry.remove();
       _overlayEntry = null;
@@ -660,7 +653,7 @@ class _FFloatContent extends StatefulWidget {
   Gradient gradient;
   VoidCallback onTouchBackground;
   bool hideTriangle;
-  _FTipContentController controller;
+  _FFloatContentController controller;
   ValueNotifier notifier;
   Duration animDuration;
   double shadowBlur;
@@ -1188,7 +1181,7 @@ class _FFloatContentState extends State<_FFloatContent>
   }
 }
 
-class _FTipContentController {
+class _FFloatContentController {
   _FFloatContentState state;
 
   update(Size anchorSize, Offset location) {
@@ -1302,7 +1295,7 @@ class FFloatController {
   ///
   /// destroy
   dispose() {
-    _callback = null;
+//    _callback = null;
   }
 
   /// 设置监听。当 [FFloat] 显示状态发生变化的时候会回调。

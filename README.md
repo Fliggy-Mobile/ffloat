@@ -18,7 +18,7 @@
 <p>
 
 <a href="https://pub.dev/packages/ffloat#-readme-tab-">
-    <img height="20" src="https://img.shields.io/badge/Version-1.0.0-important.svg">
+    <img height="20" src="https://img.shields.io/badge/Version-1.0.1-important.svg">
 </a>
 
 
@@ -46,7 +46,7 @@
 <p>
 <p>
 
-<img height="700" src="https://gw.alicdn.com/tfs/TB10qvQFrj1gK0jSZFOXXc7GpXa-964-1232.png">
+<img height="700" src="https://gw.alicdn.com/tfs/TB1j5H_GuH2gK0jSZFEXXcqMpXa-720-922.png">
 
 </div>
 
@@ -193,7 +193,7 @@ FFloat(
 
 ### 💫 Background & Animation
 
-![](https://gw.alicdn.com/tfs/TB1suD8FkL0gK0jSZFAXXcA9pXa-753-143.gif)
+![](https://gw.alicdn.com/tfs/TB179P9GuH2gK0jSZFEXXcqMpXa-720-135.gif)
 
 ```dart
 FFloat(
@@ -322,7 +322,7 @@ The `cornerStyle` property that comes with` corner` allows you to switch the sty
 
 If you are already a user of **FWidget**, I believe you already know, we configure the border effect for the component, only need to pass two simple properties `strokeWidth` and` strokeColor`.
 
-Our original intention was to help developers build beautiful applications more quickly.
+Our original intention was to help developer build beautiful applications more quickly.
 
 
 ### 🔳 Gradient & Shadow
@@ -366,6 +366,36 @@ In addition, as a modern component, **FFloat** will of course support shadows.
 
 You only need to get a basic shadow effect through the `shadowColor` property. If you want to further adjust the shadow, you can use the` shadowBlur` and `shadowOffset` properties.
 
+### 📌 Absolute position Float
+
+![](https://gw.alicdn.com/tfs/TB1gnz8GrH1gK0jSZFwXXc7aXXa-858-508.gif)
+
+```dart
+GestureDetector(
+  onPanDown: (details) {
+    FFloat(
+      (setter) => createContent(),
+      autoDismissDuration: Duration(milliseconds: 2000),
+      alignment: _alignment,
+      canTouchOutside: false,
+
+      /// Configure floating element position by absolute coordinates
+      location: Offset(details.globalPosition.dx, details.globalPosition.dy),
+    ).show(context); /// show
+  },
+  child: FSuper(...),
+)
+```
+
+In some cases, our floating element does not need to appear based on an anchor point, but hopes that it appears in a certain position.
+
+If the developer knows such a location, use the `location` parameter to set the location of **FFloat**.
+
+At this time, the developer does not need to put **FFloat** in the view tree to wrap any elements. This means that developer can create a floating element in any callback or function anytime, anywhere.
+
+Through `FFloat.show (context)` and `FFloat.dismiss ()`, developer can easily control **show / hide** of floating elements at any time.
+
+All other configurations of **FFloat** are still valid.
 
 ### 👏 More exciting
 
@@ -376,40 +406,6 @@ In **FFloat**, the floating layer can automatically follow the movement of the a
 **FFloat** has handled it for you well enough!
 
 Let **FFloat** solve all your floating layer problems, you only need to beautify your application.
-
-
-### 📌 Absolute position Float
-
-In some cases, our floating layer does not need to appear based on an anchor element, but hopes that it appears in a certain position.
-
-If you know such a location, use `location` to configure the location of your **FFloat** floating layer.
-
-At this point, you don't need to put **FFloat** in the view tree at all, which means you can create a floating layer in any callback or function anytime, anywhere.
-
-```dart
-FSuper(
-  width: 20,
-  height: 20,
-  backgroundColor: Colors.redAccent,
-  onClick: () {
-    FFloat(
-      (_) => Container(
-        width: 50,
-        height: 50,
-        color: Colors.blue,
-      ),
-      location: Offset(50, 50),
-    ).show(context);
-  },
-)
-```
-
-The above code will create a floating layer at the coordinate position of the screen (50, 50) when the click event `onClick` is triggered.
-
-You see that through `FFloat.show (context)` and `FFloat.dismiss ()`, you can easily control the show/hide of the floating layer at any time.
-
-All configurations of **FFloat** are exactly the same as those described above.
-
 
 # 😃 How to use？
 

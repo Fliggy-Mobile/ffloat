@@ -18,7 +18,7 @@
 <p>
 
 <a href="https://pub.dev/packages/ffloat#-readme-tab-">
-    <img height="20" src="https://img.shields.io/badge/Version-1.0.0-important.svg">
+    <img height="20" src="https://img.shields.io/badge/Version-1.0.1-important.svg">
 </a>
 
 
@@ -46,7 +46,7 @@
 <p>
 <p>
 
-<img height="700" src="https://gw.alicdn.com/tfs/TB10qvQFrj1gK0jSZFOXXc7GpXa-964-1232.png">
+<img height="700" src="https://gw.alicdn.com/tfs/TB1j5H_GuH2gK0jSZFEXXcqMpXa-720-922.png">
 
 </div>
 
@@ -192,7 +192,7 @@ FFloat(
 
 ### 💫 背景 & 动画
 
-![](https://gw.alicdn.com/tfs/TB1suD8FkL0gK0jSZFAXXcA9pXa-753-143.gif)
+![](https://gw.alicdn.com/tfs/TB179P9GuH2gK0jSZFEXXcqMpXa-720-135.gif)
 
 ```dart
 FFloat(
@@ -365,6 +365,36 @@ FFloat(
 
 你只需要通过 `shadowColor` 属性就能获得一个基础的阴影效果，如果你想要进一步对阴影作出调整的，可以使用 `shadowBlur` 和 `shadowOffset` 属性。
 
+### 📌 基于绝对坐标的位置控制
+
+![](https://gw.alicdn.com/tfs/TB1gnz8GrH1gK0jSZFwXXc7aXXa-858-508.gif)
+
+```dart
+GestureDetector(
+  onPanDown: (details) {
+    FFloat(
+      (setter) => createContent(),
+      autoDismissDuration: Duration(milliseconds: 2000),
+      alignment: _alignment,
+      canTouchOutside: false,
+
+      /// 通过绝对坐标配置浮动元素位置
+      location: Offset(details.globalPosition.dx, details.globalPosition.dy),
+    ).show(context); /// 显示
+  },
+  child: FSuper(...),
+)
+```
+
+在一些情况下，我们的浮动元素不需要基于一个锚点出现，而是希望它出现在一个确定的位置。
+
+如果开发者知道一个这样的位置的话，就用 `location` 参数来设置 **FFloat** 的位置吧。
+
+此时，开发者完全不需要将 **FFloat** 放到视图树中包裹任何的元素。这意味着开发者可以随时随地，在任何回调或者函数中创建一个浮动元素。
+
+通过 `FFloat.show(context)` 和  `FFloat.dismiss()`，开放着可以随时轻松的控制浮动元素的 **显示/隐藏** 。
+
+而 **FFloat** 的其它一切配置都依旧有效。
 
 ### 👏 更多的精彩
 
@@ -375,39 +405,6 @@ FFloat(
 **FFloat** 都帮你处理的足够好了！
 
 让 **FFloat** 来解决你的一切浮层问题吧，你只需要用心美化你的应用就够了。
-
-
-### 📌 绝对位置浮层
-
-在一些情况下，我们的浮层不需要基于一个锚点元素出现，而是希望它出现在一个确定的位置。
-
-如果你知道一个这样的位置的话，就用 `location` 来配置你的 **FFloat** 浮层的位置吧。
-
-此时，你完全不需要将 **FFloat** 放到视图树中，这意味着你可以随时随地，在任何回调或者函数中创建一个浮层。
-
-```dart
-FSuper(
-  width: 20,
-  height: 20,
-  backgroundColor: Colors.redAccent,
-  onClick: () {
-    FFloat(
-      (_) => Container(
-        width: 50,
-        height: 50,
-        color: Colors.blue,
-      ),
-      location: Offset(50, 50),
-    ).show(context);
-  },
-)
-```
-
-以上代码，将会在点击事件 `onClick` 触发时，在屏幕的 `(50, 50)` 坐标位置创建一个浮层。
-
-你看通过 `FFloat.show(context)` 和  `FFloat.dismiss()`，你可以随时轻松的控制浮层的显示/隐藏。
-
-而 **FFloat** 的一切配置，和前面所介绍的都完全相同。
 
 
 # 😃 如何使用？
