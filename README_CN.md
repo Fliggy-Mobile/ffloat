@@ -18,7 +18,7 @@
 <p>
 
 <a href="https://pub.dev/packages/ffloat#-readme-tab-">
-    <img height="20" src="https://img.shields.io/badge/Version-1.0.1-important.svg">
+    <img height="20" src="https://img.shields.io/badge/Version-1.0.2-important.svg">
 </a>
 
 
@@ -470,3 +470,5 @@ flutter create .
 ```
 
 3. 运行 `example` 中的 Demo
+
+# [🛸传送门：更新日志](https://github.com/Fliggy-Mobile/ffloat/blob/master/CHANGELOG.md)

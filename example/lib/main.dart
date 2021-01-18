@@ -1,11 +1,9 @@
-import 'dart:async';
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:fbutton/fbutton.dart';
+import 'package:ffloat/ffloat.dart';
 import 'package:ffloat_example/color.dart';
 import 'package:flutter/material.dart';
-import 'package:ffloat/ffloat.dart';
 import 'package:fradio/fradio.dart';
 import 'package:fsuper/fsuper.dart';
 
@@ -805,6 +803,7 @@ class _FFloatPage extends State<FFloatPage> {
     );
   }
 
+  String test = "Surprise😃 !";
   Widget backgroundDemo() {
     return FSuper(
       width: double.infinity,
@@ -814,7 +813,8 @@ class _FFloatPage extends State<FFloatPage> {
         children: [
           FFloat(
             (_) => FSuper(
-              text: "Surprise😃 !",
+//              text: "Surprise😃 !",
+              text: test,
               textColor: Colors.white,
             ),
             controller: controller2_1,
@@ -828,12 +828,20 @@ class _FFloatPage extends State<FFloatPage> {
               text: "esc",
               textColor: Colors.white,
               fontSize: 15,
+              alignment: Alignment.center,
               corner: FButtonCorner.all(3),
               padding: EdgeInsets.all(0),
               color: Color(0xff373737),
               effect: true,
               onPressed: () {
-                controller2_1.show();
+                if (!controller2_1.isShow) {
+                  test = "Surprise😃 !";
+                  controller2_1.show();
+                } else {
+                  controller2_1.setState(() {
+                    test = "Changed!";
+                  });
+                }
               },
               hoverColor: Colors.white60.withOpacity(0.3),
             ),

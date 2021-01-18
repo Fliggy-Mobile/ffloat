@@ -18,7 +18,7 @@
 <p>
 
 <a href="https://pub.dev/packages/ffloat#-readme-tab-">
-    <img height="20" src="https://img.shields.io/badge/Version-1.0.1-important.svg">
+    <img height="20" src="https://img.shields.io/badge/Version-1.0.2-important.svg">
 </a>
 
 
@@ -427,7 +427,7 @@ dependencies:
   ffloat:
     git:
       url: 'git@github.com:Fliggy-Mobile/ffloat.git'
-      ref: ''<Branch number or tag number>'
+      ref: '<Branch number or tag number>'
 ```
 
 > ⚠️ Attention，please refer to [**FFloat**] (https://github.com/Fliggy-Mobile/ffloat) official project for branch number or tag.
@@ -457,7 +457,7 @@ limitations under the License.
 
 
 
---
+---
 
 # How to run Demo project?
 
@@ -470,3 +470,5 @@ flutter create .
 ```
 
 3. Run the demo in `example`
+
+# [🛸Portal: Update Log](https://github.com/Fliggy-Mobile/ffloat/blob/master/CHANGELOG.md)

@@ -521,6 +521,7 @@ class _FFloat {
         realDismiss();
       }
     });
+    ffloatContentController = new _FFloatContentController();
     controller?._show = () {
       show();
     };
@@ -530,7 +531,9 @@ class _FFloat {
     controller?._rebuildShow = () {
       rebuildShow();
     };
-    ffloatContentController = new _FFloatContentController();
+    controller?._setState = (VoidCallback fn){
+      ffloatContentController?.setState(fn);
+    };
   }
 
   void update(Size anchorSize, Offset location) {
@@ -1184,8 +1187,14 @@ class _FFloatContentState extends State<_FFloatContent>
 class _FFloatContentController {
   _FFloatContentState state;
 
+
+  setState(VoidCallback fn){
+    state?._setState(fn);
+  }
+
+
   update(Size anchorSize, Offset location) {
-    state?._setState(() {
+    setState(() {
       state.anchorSize = anchorSize;
       state.location = location;
     });
@@ -1263,6 +1272,7 @@ class FFloatController {
   VoidCallback _show;
   VoidCallback _dismiss;
   VoidCallback _rebuildShow;
+  StateSetter _setState;
 
   /// 隐藏 [FFloat]
   ///
@@ -1303,6 +1313,11 @@ class FFloatController {
   /// Set up monitoring. It will be called back when [FFloat] display status changes.
   setStateChangedListener(VoidCallback listener) {
     _callback = listener;
+  }
+
+
+  setState(VoidCallback fn){
+    _setState?.call(fn);
   }
 }
 
