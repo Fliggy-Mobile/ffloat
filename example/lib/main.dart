@@ -53,13 +53,13 @@ class _FFloatPage extends State<FFloatPage> {
 
   List<String> fileMenuList = [];
   List<String> clickList = [];
-  int group_menu_value1 = -1;
-  int group_menu_value2 = -1;
-  int group_menu_value3 = -1;
+  int groupMenuValue1 = -1;
+  int groupMenuValue2 = -1;
+  int groupMenuValue3 = -1;
 
-  int group_toolbar_value = -1;
+  int groupToolbarValue = -1;
 
-  int group_corner_value = -1;
+  int groupCornerValue = -1;
 
   List<FFloatAlignment> alignmentList;
 
@@ -205,8 +205,7 @@ class _FFloatPage extends State<FFloatPage> {
             "Hello",
             style: TextStyle(color: Colors.white),
           ),
-          location:
-              Offset(details.globalPosition.dx, details.globalPosition.dy),
+          location: Offset(details.globalPosition.dx, details.globalPosition.dy),
           autoDismissDuration: Duration(milliseconds: 2000),
           padding: EdgeInsets.all(6.0),
           corner: FFloatCorner.all(6.0),
@@ -221,7 +220,7 @@ class _FFloatPage extends State<FFloatPage> {
         shadowColor: mainShadowColor,
         shadowOffset: Offset(3.0, 3.0),
         shadowBlur: 5.0,
-        corner: Corner.all(6.0),
+        corner: FCorner.all(6.0),
       ),
     );
   }
@@ -236,8 +235,7 @@ class _FFloatPage extends State<FFloatPage> {
         color: Color(0xffe2f1fa),
         borderRadius: BorderRadius.all(Radius.circular(6)),
         boxShadow: [
-          BoxShadow(
-              color: mainShadowColor, blurRadius: 5, offset: Offset(5, 5)),
+          BoxShadow(color: mainShadowColor, blurRadius: 5, offset: Offset(5, 5)),
         ],
       ),
       alignment: Alignment.center,
@@ -252,14 +250,9 @@ class _FFloatPage extends State<FFloatPage> {
                   style: TextStyle(color: Colors.white),
                 );
               },
-              padding:
-                  EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
               margin: EdgeInsets.only(bottom: 3),
-              corner: FFloatCorner(
-                  leftTopCorner: 50,
-                  rightTopCorner: 50,
-                  leftBottomCorner: 35,
-                  rightBottomCorner: 35),
+              corner: FFloatCorner(leftTopCorner: 50, rightTopCorner: 50, leftBottomCorner: 35, rightBottomCorner: 35),
               triangleWidth: 30,
               triangleHeight: 10,
               anchor: Image.asset(
@@ -279,14 +272,9 @@ class _FFloatPage extends State<FFloatPage> {
                   style: TextStyle(color: Colors.white),
                 );
               },
-              padding:
-                  EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
               margin: EdgeInsets.only(bottom: 3),
-              corner: FFloatCorner(
-                  leftTopCorner: 80,
-                  rightTopCorner: 80,
-                  leftBottomCorner: 35,
-                  rightBottomCorner: 35),
+              corner: FFloatCorner(leftTopCorner: 80, rightTopCorner: 80, leftBottomCorner: 35, rightBottomCorner: 35),
               triangleWidth: 55,
               triangleHeight: 10,
               anchor: Image.asset(
@@ -306,14 +294,9 @@ class _FFloatPage extends State<FFloatPage> {
                   style: TextStyle(color: Colors.white),
                 );
               },
-              padding:
-                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
               margin: EdgeInsets.only(bottom: 10, right: 3),
-              corner: FFloatCorner(
-                  leftTopCorner: 50,
-                  rightTopCorner: 25,
-                  leftBottomCorner: 50,
-                  rightBottomCorner: 25),
+              corner: FFloatCorner(leftTopCorner: 50, rightTopCorner: 25, leftBottomCorner: 50, rightBottomCorner: 25),
               triangleWidth: 23,
               triangleHeight: 10,
               alignment: FFloatAlignment.leftTop,
@@ -334,14 +317,9 @@ class _FFloatPage extends State<FFloatPage> {
                   style: TextStyle(color: Colors.white),
                 );
               },
-              padding:
-                  EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 15),
               margin: EdgeInsets.only(bottom: 3),
-              corner: FFloatCorner(
-                  leftTopCorner: 80,
-                  rightTopCorner: 80,
-                  leftBottomCorner: 40,
-                  rightBottomCorner: 40),
+              corner: FFloatCorner(leftTopCorner: 80, rightTopCorner: 80, leftBottomCorner: 40, rightBottomCorner: 40),
               triangleWidth: 41,
               triangleHeight: 10,
               anchor: Image.asset(
@@ -361,14 +339,9 @@ class _FFloatPage extends State<FFloatPage> {
                   style: TextStyle(color: Colors.white),
                 );
               },
-              padding:
-                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
               margin: EdgeInsets.only(bottom: 3),
-              corner: FFloatCorner(
-                  leftTopCorner: 50,
-                  rightTopCorner: 80,
-                  leftBottomCorner: 50,
-                  rightBottomCorner: 80),
+              corner: FFloatCorner(leftTopCorner: 50, rightTopCorner: 80, leftBottomCorner: 50, rightBottomCorner: 80),
               alignment: FFloatAlignment.rightCenter,
               triangleWidth: 19,
               triangleHeight: 10,
@@ -395,15 +368,15 @@ class _FFloatPage extends State<FFloatPage> {
       anchor: FButton(
         width: 72,
         height: 30,
-        corner: FButtonCorner.all(3),
+        corner: FCorner.all(3),
         padding: EdgeInsets.all(0),
         color: Color(0xff373737),
-        effect: true,
+        clickEffect: true,
         image: Image.asset("assets/icon_color.png", width: 18),
         onPressed: () {
           controller5.show();
         },
-        hoverColor: Colors.white60.withOpacity(0.3),
+        hoverColor: Color(0xff373737).withOpacity(0.6),
       ),
       controller: controller5,
       gradient: SweepGradient(
@@ -441,35 +414,32 @@ class _FFloatPage extends State<FFloatPage> {
               itemBuilder: (context, index) {
                 return FRadio.custom(
                   value: index,
-                  groupValue: group_corner_value,
+                  groupValue: groupCornerValue,
                   onChanged: (value) {
                     setter(() {
-                      group_corner_value = value;
+                      groupCornerValue = value;
                     });
                   },
                   normal: FSuper(
                     width: double.infinity,
                     textAlign: TextAlign.left,
                     text: clickList[index],
-                    padding:
-                        EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
+                    padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                   ),
                   selected: FSuper(
                     width: double.infinity,
                     text: clickList[index],
                     textAlign: TextAlign.left,
-                    textColor: Colors.white,
+                    style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
                     backgroundColor: Color(0xff008FFF),
-                    padding:
-                        EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
+                    padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                   ),
                   hover: FSuper(
                     width: double.infinity,
                     text: clickList[index],
                     textAlign: TextAlign.left,
                     backgroundColor: Colors.black38.withOpacity(0.1),
-                    padding:
-                        EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
+                    padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                   ),
                 );
               }),
@@ -482,11 +452,11 @@ class _FFloatPage extends State<FFloatPage> {
           controller4.show();
         },
         text: "Click",
-        textColor: mainTextNormalColor,
+        style: Theme.of(context).textTheme.button.copyWith(color: mainTextNormalColor),
         color: Colors.white,
-        effect: true,
+        clickEffect: true,
         padding: EdgeInsets.zero,
-        corner: FButtonCorner.all(6),
+        corner: FCorner.all(6),
         shadowColor: mainShadowColor,
         shadowOffset: Offset(1, 1),
         shadowBlur: 5.0,
@@ -536,35 +506,32 @@ class _FFloatPage extends State<FFloatPage> {
                   itemBuilder: (context, index) {
                     return FRadio.custom(
                       value: index,
-                      groupValue: group_menu_value1,
+                      groupValue: groupMenuValue1,
                       onChanged: (value) {
                         setter(() {
-                          group_menu_value1 = value;
+                          groupMenuValue1 = value;
                         });
                       },
                       normal: FSuper(
                         width: double.infinity,
                         textAlign: TextAlign.left,
                         text: fileMenuList[index],
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       selected: FSuper(
                         width: double.infinity,
                         text: fileMenuList[index],
                         textAlign: TextAlign.left,
-                        textColor: Colors.white,
+                        style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
                         backgroundColor: Color(0xff008FFF),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       hover: FSuper(
                         width: double.infinity,
                         text: fileMenuList[index],
                         textAlign: TextAlign.left,
                         backgroundColor: Colors.black38.withOpacity(0.1),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                     );
                   }),
@@ -581,32 +548,29 @@ class _FFloatPage extends State<FFloatPage> {
               width: 56,
               height: 22,
               value: 0,
-              groupValue: group_toolbar_value,
+              groupValue: groupToolbarValue,
               onChanged: (value) {
                 setState(() {
-                  group_toolbar_value = value;
+                  groupToolbarValue = value;
                 });
                 controller3_1.show();
               },
               normal: FSuper(
                 text: "Finder",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
               ),
               hover: FSuper(
                 text: "Finder",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF).withOpacity(0.2),
               ),
               selected: FSuper(
                 text: "Finder",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF),
               ),
@@ -624,35 +588,32 @@ class _FFloatPage extends State<FFloatPage> {
                   itemBuilder: (context, index) {
                     return FRadio.custom(
                       value: index,
-                      groupValue: group_menu_value2,
+                      groupValue: groupMenuValue2,
                       onChanged: (value) {
                         setter(() {
-                          group_menu_value2 = value;
+                          groupMenuValue2 = value;
                         });
                       },
                       normal: FSuper(
                         width: double.infinity,
                         textAlign: TextAlign.left,
                         text: fileMenuList[index],
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       selected: FSuper(
                         width: double.infinity,
                         text: fileMenuList[index],
                         textAlign: TextAlign.left,
-                        textColor: Colors.white,
+                        style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
                         backgroundColor: Color(0xff008FFF),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       hover: FSuper(
                         width: double.infinity,
                         text: fileMenuList[index],
                         textAlign: TextAlign.left,
                         backgroundColor: Colors.black38.withOpacity(0.1),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                     );
                   }),
@@ -673,32 +634,29 @@ class _FFloatPage extends State<FFloatPage> {
               width: 38,
               height: 22,
               value: 1,
-              groupValue: group_toolbar_value,
+              groupValue: groupToolbarValue,
               onChanged: (value) {
                 setState(() {
-                  group_toolbar_value = value;
+                  groupToolbarValue = value;
                 });
                 controller3_2.show();
               },
               normal: FSuper(
                 text: "File",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
               ),
               hover: FSuper(
                 text: "File",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF).withOpacity(0.2),
               ),
               selected: FSuper(
                 text: "File",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF),
               ),
@@ -716,27 +674,25 @@ class _FFloatPage extends State<FFloatPage> {
                   itemBuilder: (context, index) {
                     return FRadio.custom(
                       value: index,
-                      groupValue: group_menu_value3,
+                      groupValue: groupMenuValue3,
                       onChanged: (value) {
                         setter(() {
-                          group_menu_value3 = value;
+                          groupMenuValue3 = value;
                         });
                       },
                       normal: FSuper(
                         width: double.infinity,
                         textAlign: TextAlign.left,
                         text: fileMenuList[index],
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       selected: FSuper(
                         width: double.infinity,
                         text: fileMenuList[index],
                         textAlign: TextAlign.left,
-                        textColor: Colors.white,
+                        style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
                         backgroundColor: Color(0xff008FFF),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                       hover: FSuper(
                         width: double.infinity,
@@ -744,8 +700,7 @@ class _FFloatPage extends State<FFloatPage> {
                         textAlign: TextAlign.left,
 //                                backgroundColor: Color(0xff008FFF),
                         backgroundColor: Colors.black38.withOpacity(0.1),
-                        padding: EdgeInsets.only(
-                            left: 20, right: 10, top: 3, bottom: 3),
+                        padding: EdgeInsets.only(left: 20, right: 10, top: 3, bottom: 3),
                       ),
                     );
                   }),
@@ -766,32 +721,29 @@ class _FFloatPage extends State<FFloatPage> {
               width: 38,
               height: 22,
               value: 2,
-              groupValue: group_toolbar_value,
+              groupValue: groupToolbarValue,
               onChanged: (value) {
                 setState(() {
-                  group_toolbar_value = value;
+                  groupToolbarValue = value;
                 });
                 controller3_3.show();
               },
               normal: FSuper(
                 text: "Edit",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
               ),
               hover: FSuper(
                 text: "Edit",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 textAlignment: Alignment.center,
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF).withOpacity(0.2),
               ),
               selected: FSuper(
                 text: "Edit",
-                textColor: Colors.white,
-                textSize: 14,
+                style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 14),
                 padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
                 backgroundColor: Color(0xff008FFF),
               ),
@@ -815,7 +767,7 @@ class _FFloatPage extends State<FFloatPage> {
             (_) => FSuper(
 //              text: "Surprise😃 !",
               text: test,
-              textColor: Colors.white,
+              style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
             ),
             controller: controller2_1,
             color: Color(0xff5D5D5E),
@@ -826,13 +778,12 @@ class _FFloatPage extends State<FFloatPage> {
               width: 72,
               height: 30,
               text: "esc",
-              textColor: Colors.white,
-              fontSize: 15,
+              style: Theme.of(context).textTheme.button.copyWith(color: Colors.white, fontSize: 15),
               alignment: Alignment.center,
-              corner: FButtonCorner.all(3),
+              corner: FCorner.all(3),
               padding: EdgeInsets.all(0),
               color: Color(0xff373737),
-              effect: true,
+              clickEffect: true,
               onPressed: () {
                 if (!controller2_1.isShow) {
                   test = "Surprise😃 !";
@@ -852,7 +803,7 @@ class _FFloatPage extends State<FFloatPage> {
           FFloat(
             (_) => FSuper(
               text: "HA🌝 !",
-              textColor: Colors.white,
+              style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
             ),
             controller: controller2_3,
             color: Color(0xff5D5D5E),
@@ -862,12 +813,12 @@ class _FFloatPage extends State<FFloatPage> {
             anchor: FButton(
               width: 72,
               height: 30,
-              corner: FButtonCorner.all(3),
+              corner: FCorner.all(3),
               imageAlignment: ImageAlignment.left,
               image: Icon(Icons.add, color: Colors.white, size: 18),
               padding: EdgeInsets.all(0),
               color: Color(0xff373737),
-              effect: true,
+              clickEffect: true,
               onPressed: () {
                 controller2_3.show();
               },
@@ -922,12 +873,12 @@ class _FFloatPage extends State<FFloatPage> {
         anchor: FButton(
           width: 72,
           height: 30,
-          corner: FButtonCorner.all(3),
+          corner: FCorner.all(3),
           imageAlignment: ImageAlignment.left,
           image: Icon(Icons.search, color: Colors.white, size: 18),
           padding: EdgeInsets.all(0),
           color: Color(0xff373737),
-          effect: true,
+          clickEffect: true,
           onPressed: () {
             controller2_2.show();
           },
@@ -965,9 +916,8 @@ class _FFloatPage extends State<FFloatPage> {
       height: 50,
       textAlignment: Alignment.center,
       text: text_1,
-      textColor: mainTextNormalColor,
-      textSize: 18,
-      corner: Corner.all(10),
+      style: Theme.of(context).textTheme.button.copyWith(color: mainTextNormalColor, fontSize: 18),
+      corner: FCorner.all(10),
       backgroundColor: Colors.white,
       padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
       shadowColor: mainShadowColor,
