@@ -92,12 +92,12 @@ class FFloat extends StatefulWidget {
   /// 锚点组件
   ///
   /// Anchor component
-  final Widget anchor;
+  final Widget? anchor;
 
   /// 位置。通过 [location] 指定 [FFloat] 的位置后，基于锚点确定位置的所有配置将失效。
   ///
   /// position. After specifying the location of [FFloat] through [location], all configurations that determine the location based on the anchor point will be invalid.
-  final Offset location;
+  final Offset? location;
 
   /// [FFloat] 基于 [anchor] 锚点元素的相对位置。
   ///
@@ -112,7 +112,7 @@ class FFloat extends StatefulWidget {
   /// [FFloat] 内部间距
   ///
   /// [FFloat] Internal spacing
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   /// 点击 [FFloat] 范围外区域是否隐藏。
   ///
@@ -127,12 +127,12 @@ class FFloat extends StatefulWidget {
   /// 自动消失时长。如果为 null，就不会自动消失。
   ///
   /// Duration of automatic disappearance. If it is null, it will not disappear automatically.
-  final Duration autoDismissDuration;
+  final Duration? autoDismissDuration;
 
   /// 通过 [FFloatController] 可以控制 [FFloat] 的显示/隐藏。详见 [FFloatController]。
   ///
   /// [FFloatController] can control the display / hide of [FFloat]. See [FFloatController] for details.
-  final FFloatController controller;
+  final FFloatController? controller;
 
   /// 显示/隐藏动效时长。默认 `Duration(milliseconds: 100)`
   ///
@@ -167,46 +167,46 @@ class FFloat extends StatefulWidget {
   /// 描边颜色
   ///
   /// Stroke color
-  final Color strokeColor;
+  final Color? strokeColor;
 
   /// 描边宽度
   ///
   /// Stroke width
-  final double strokeWidth;
+  final double? strokeWidth;
 
   /// 圆角。详见 [FFloatCorner]。
   ///
   /// Corner. See [FFloatCorner] for details.
-  final FFloatCorner corner;
+  final FFloatCorner? corner;
 
   /// 圆角样式。详见 [FFloatCornerStyle]。
   ///
   /// Corner style. See [FFloatCornerStyle] for details.
-  final FFloatCornerStyle cornerStyle;
+  final FFloatCornerStyle? cornerStyle;
 
   /// 设置组件阴影颜色
   ///
   /// Set component shadow color
-  Color shadowColor;
+  final Color? shadowColor;
 
   /// 设置组件阴影偏移
   ///
   /// Set component shadow offset
-  Offset shadowOffset;
+  final Offset? shadowOffset;
 
   /// 设置组件高斯与阴影形状卷积的标准偏差。
   ///
   /// Sets the standard deviation of the component's Gaussian convolution with the shadow shape.
-  double shadowBlur;
+  final double shadowBlur;
 
   /// 设置组件渐变色背景。会覆盖 [backgroundColor]
   /// 你可选择 [LinearGradient]，[RadialGradient]，[SweepGradient] 等..
   ///
   /// Sets the gradient background of the component. [backgroundColor]
   /// You can choose [LinearGradient], [RadialGradient], [SweepGradient], etc ..
-  Gradient gradient;
+  final Gradient? gradient;
 
-  _FFloat _float;
+  _FFloat? _float;
 
   FFloat(
     this.builder, {
@@ -240,49 +240,48 @@ class FFloat extends StatefulWidget {
   _FFloatState createState() => _FFloatState();
 
   void show(BuildContext context) {
-    _float = _FFloat(
-      context,
-      builder,
-      location: location,
-      margin: margin,
-      triangleWidth: triangleWidth,
-      triangleHeight: triangleHeight,
-      triangleAlignment: triangleAlignment,
-      triangleOffset: triangleOffset,
-      alignment: alignment,
-      padding: padding,
-      color: color,
-      strokeColor: strokeColor,
-      strokeWidth: strokeWidth,
-      corner: corner,
-      cornerStyle: cornerStyle,
-      backgroundColor: backgroundColor,
-      gradient: gradient,
-      canTouchOutside: canTouchOutside,
-      hideTriangle: hideTriangle,
-      autoDismissDuration: autoDismissDuration,
-      controller: controller,
-      animDuration: animDuration,
-      shadowBlur: shadowBlur,
-      shadowColor: shadowColor,
-      shadowOffset: shadowOffset,
-    );
-    _float.show();
+    if (_float == null || _float?.context != context) {
+      dismiss();
+      _float = _FFloat(
+        context,
+        builder,
+        location: location,
+        margin: margin,
+        triangleWidth: triangleWidth,
+        triangleHeight: triangleHeight,
+        triangleAlignment: triangleAlignment,
+        triangleOffset: triangleOffset,
+        alignment: alignment,
+        padding: padding,
+        color: color,
+        strokeColor: strokeColor,
+        strokeWidth: strokeWidth,
+        corner: corner,
+        cornerStyle: cornerStyle,
+        backgroundColor: backgroundColor,
+        gradient: gradient,
+        canTouchOutside: canTouchOutside,
+        hideTriangle: hideTriangle,
+        autoDismissDuration: autoDismissDuration,
+        controller: controller,
+        animDuration: animDuration,
+        shadowBlur: shadowBlur,
+        shadowColor: shadowColor,
+        shadowOffset: shadowOffset,
+      );
+    }
+    _float?.show();
   }
 
-  void dismiss() {
-    if (_float != null) {
-      _float.dismiss();
-    }
-  }
+  void dismiss() => _float?.dismiss();
 }
 
 class _FFloatState extends State<FFloat> {
   GlobalKey key = GlobalKey();
-  Offset anchorLocation;
-  Size anchorSize;
+  Offset? anchorLocation;
+  Size? anchorSize;
 
-  _FFloat _float;
+  _FFloat? _float;
 
   @override
   void initState() {
@@ -328,11 +327,12 @@ class _FFloatState extends State<FFloat> {
   }
 
   void postUpdateCallback() {
-    WidgetsBinding.instance.addPostFrameCallback((time) {
+    WidgetsBinding.instance?.addPostFrameCallback((time) {
       if (!mounted) return;
-      RenderBox box = key.currentContext.findRenderObject();
-      Offset location = box?.localToGlobal(Offset.zero);
-      Size size = box?.size;
+      var r = key.currentContext?.findRenderObject();
+      RenderBox? box = r is RenderBox ? r : null;
+      Offset? location = box?.localToGlobal(Offset.zero);
+      Size? size = box?.size;
       bool needUpdate = false;
       if (location != null && location != anchorLocation) {
         needUpdate = true;
@@ -343,7 +343,7 @@ class _FFloatState extends State<FFloat> {
         anchorSize = size;
       }
       if (_float != null && needUpdate) {
-        _float.update(anchorSize, anchorLocation);
+        _float!.update(anchorSize, anchorLocation);
       }
       postUpdateCallback();
     });
@@ -352,7 +352,7 @@ class _FFloatState extends State<FFloat> {
   @override
   void dispose() {
     if (_float != null) {
-      _float.dispose();
+      _float!.dispose();
       _float = null;
     }
     super.dispose();
@@ -362,12 +362,10 @@ class _FFloatState extends State<FFloat> {
   void didUpdateWidget(FFloat oldWidget) {
     if (_float != null) {
       asyncParams();
-      if (_float.isShow) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_float!.isShow) {
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
           if (!mounted) return;
-          if (_float != null) {
-            _float._showFloat();
-          }
+          _float?._showFloat();
         });
       }
     }
@@ -376,7 +374,7 @@ class _FFloatState extends State<FFloat> {
 
   void asyncParams() {
     if (_float == null) return;
-    _float
+    _float!
       ..context = context
       ..builder = widget.builder
       ..location = widget.location
@@ -428,8 +426,8 @@ class _FFloatState extends State<FFloat> {
 
   void handleOnTap() {
     if (_float != null) {
-//      asyncParams();
-      _float.show();
+      //asyncParams();
+      _float!.show();
     }
   }
 }
@@ -440,31 +438,31 @@ class _FFloat {
   TriangleAlignment triangleAlignment;
   Offset triangleOffset;
   Color color;
-  Widget child;
+  Widget? child;
   FFloatAlignment alignment;
   EdgeInsets margin;
-  EdgeInsets padding;
-  Color strokeColor;
-  double strokeWidth;
-  FFloatCorner corner;
-  FFloatCornerStyle cornerStyle;
+  EdgeInsets? padding;
+  Color? strokeColor;
+  double? strokeWidth;
+  FFloatCorner? corner;
+  FFloatCornerStyle? cornerStyle;
   FloatBuilder builder;
   bool canTouchOutside;
   Color backgroundColor;
-  Gradient gradient;
+  Gradient? gradient;
   bool hideTriangle;
-  Duration autoDismissDuration;
-  FFloatController controller;
-  Offset location;
-  Duration animDuration;
+  Duration? autoDismissDuration;
+  FFloatController? controller;
+  Offset? location;
+  Duration? animDuration;
   double shadowBlur;
-  Color shadowColor;
-  Offset shadowOffset;
+  Color? shadowColor;
+  Offset? shadowOffset;
 
-  Offset childLocation;
-  Size childSize;
+  Offset? childLocation;
+  Size? childSize;
 
-  OverlayEntry _overlayEntry;
+  OverlayEntry? _overlayEntry;
   bool _isShow = false;
 
   bool get isShow => _isShow;
@@ -475,11 +473,11 @@ class _FFloat {
     controller?.isShow = value;
   }
 
-  Timer dismissTimer;
+  Timer? dismissTimer;
 
-  _FFloatContentController ffloatContentController;
+  late final _FFloatContentController ffloatContentController = _FFloatContentController();
 
-  ValueNotifier<int> notifier;
+  late final ValueNotifier<int> notifier = ValueNotifier(0);
 
   BuildContext context;
 
@@ -515,13 +513,11 @@ class _FFloat {
   }
 
   void init() {
-    notifier = new ValueNotifier(0);
     notifier.addListener(() {
       if (notifier.value == 0) {
         realDismiss();
       }
     });
-    ffloatContentController = new _FFloatContentController();
     controller?._show = () {
       show();
     };
@@ -531,24 +527,24 @@ class _FFloat {
     controller?._rebuildShow = () {
       rebuildShow();
     };
-    controller?._setState = (VoidCallback fn){
-      ffloatContentController?.setState(fn);
+    controller?._setState = (VoidCallback fn) {
+      ffloatContentController.setState(fn);
     };
   }
 
-  void update(Size anchorSize, Offset location) {
+  void update(Size? anchorSize, Offset? location) {
     childSize = anchorSize;
     childLocation = location;
-    if (ffloatContentController != null && isShow) {
+    if (isShow) {
       ffloatContentController.update(anchorSize, location);
     }
   }
 
   void dispose() {
     controller?.dispose();
-    ffloatContentController?.dispose();
-    if (dismissTimer != null && dismissTimer.isActive) {
-      dismissTimer.cancel();
+    ffloatContentController.dispose();
+    if (dismissTimer?.isActive ?? false) {
+      dismissTimer!.cancel();
       dismissTimer = null;
     }
   }
@@ -566,13 +562,10 @@ class _FFloat {
   void _showFloat() {
     final bool hasShow = isShow;
     isShow = true;
-    if (_overlayEntry != null) {
-      _overlayEntry.remove();
-    }
-    OverlayState overlayState = Overlay.of(context);
+    _overlayEntry?.remove();
     _overlayEntry = OverlayEntry(builder: (BuildContext context) {
       Widget floatContent = _FFloatContent(
-        (location != null ? location : childLocation) ?? Offset.zero,
+        (location ?? childLocation) ?? Offset.zero,
         builder,
         anchorSize: childSize ?? Size.zero,
         alignment: alignment,
@@ -601,9 +594,10 @@ class _FFloat {
       );
       return floatContent;
     });
-    overlayState.insert(_overlayEntry);
+    OverlayState? overlayState = Overlay.of(context);
+    overlayState?.insert(_overlayEntry!);
     if (autoDismissDuration != null && dismissTimer == null) {
-      dismissTimer = Timer(autoDismissDuration, () {
+      dismissTimer = Timer(autoDismissDuration!, () {
         if (_overlayEntry != null) {
           dismissTimer = null;
           dismiss();
@@ -614,19 +608,17 @@ class _FFloat {
 
   void dismiss() {
     isShow = false;
-    if (dismissTimer != null && dismissTimer.isActive) {
-      dismissTimer.cancel();
+    if (dismissTimer?.isActive ?? false) {
+      dismissTimer!.cancel();
       dismissTimer = null;
     }
-    if (notifier != null) {
-      notifier.value = 1;
-    }
+    notifier.value = 1;
   }
 
   void realDismiss() {
     isShow = false;
     if (_overlayEntry != null) {
-      _overlayEntry.remove();
+      _overlayEntry!.remove();
       _overlayEntry = null;
     }
   }
@@ -636,33 +628,33 @@ class _FFloat {
 class _FFloatContent extends StatefulWidget {
   static const Color DefaultColor = Color(0x7F000000);
 
-  FloatBuilder builder;
+  FloatBuilder? builder;
   Size anchorSize;
   Offset location;
-  Widget child;
+  Widget? child;
   double triangleWidth;
   double triangleHeight;
   TriangleAlignment triangleAlignment;
   Offset triangleOffset;
-  Color color;
+  Color? color;
   FFloatAlignment alignment;
   EdgeInsets margin;
-  EdgeInsets padding;
-  Color strokeColor;
-  double strokeWidth;
-  FFloatCorner corner;
-  FFloatCornerStyle cornerStyle;
+  EdgeInsets? padding;
+  Color? strokeColor;
+  double? strokeWidth;
+  FFloatCorner? corner;
+  FFloatCornerStyle? cornerStyle;
   Color backgroundColor;
-  Gradient gradient;
-  VoidCallback onTouchBackground;
+  Gradient? gradient;
+  VoidCallback? onTouchBackground;
   bool hideTriangle;
-  _FFloatContentController controller;
-  ValueNotifier notifier;
-  Duration animDuration;
+  _FFloatContentController? controller;
+  ValueNotifier<int>? notifier;
+  Duration? animDuration;
   double shadowBlur;
-  Color shadowColor;
-  Offset shadowOffset;
-  bool initShow;
+  Color? shadowColor;
+  Offset? shadowOffset;
+  bool? initShow;
 
   _FFloatContent(
     this.location,
@@ -697,60 +689,44 @@ class _FFloatContent extends StatefulWidget {
   _FFloatContentState createState() => _FFloatContentState();
 }
 
-class _FFloatContentState extends State<_FFloatContent>
-    with TickerProviderStateMixin {
+class _FFloatContentState extends State<_FFloatContent> with TickerProviderStateMixin {
   GlobalKey key = GlobalKey();
-  Size areaSize;
-  Offset location;
-  Size anchorSize;
-  AnimationController animationController;
-  Animation<double> scaleAnimation;
-  bool init;
+  Size? areaSize;
+  late Offset location = widget.location;
+  late Size anchorSize = widget.anchorSize;
+  late final AnimationController animationController;
+  late final Animation<double> scaleAnimation;
+  bool init = false;
 
   @override
   void initState() {
     init = true;
     super.initState();
-    animationController = new AnimationController(
-        vsync: this,
-        duration: widget.animDuration ?? Duration(milliseconds: 0));
-    scaleAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(animationController);
+    animationController = AnimationController(vsync: this, duration: widget.animDuration ?? Duration(milliseconds: 0));
+    scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animationController);
     scaleAnimation.addListener(() {
       setState(() {});
     });
     scaleAnimation.addStatusListener((status) {
-//      print('scaleAnimation.status = ${status.toString()}');
-      if ((status == AnimationStatus.dismissed ||
-              status == AnimationStatus.completed) &&
-          widget.notifier != null &&
-          widget.notifier.value == 1) {
-        widget.notifier.value = 0;
+      //print('scaleAnimation.status = ${status.toString()}');
+      if ((status == AnimationStatus.dismissed || status == AnimationStatus.completed) && widget.notifier?.value == 1) {
+        widget.notifier?.value = 0;
       }
     });
     animationController.forward();
-    if (widget.notifier != null) {
-      widget.notifier.addListener(onNotifier);
-    }
-    location = widget.location;
-    anchorSize = widget.anchorSize;
-    if (widget.controller != null) {
-      widget.controller.state = this;
-    }
+    widget.notifier?.addListener(onNotifier);
+    widget.controller?.state = this;
     postUpdateCallback();
   }
 
   void onNotifier() {
-    if (mounted &&
-        widget.notifier != null &&
-        widget.notifier.value == 1 &&
-        animationController != null) {
+    if (mounted && widget.notifier?.value == 1) {
       animationController.reverse(from: 1.0);
     }
   }
 
   void _setState(Function func) {
-    if (mounted && func != null) {
+    if (mounted) {
       setState(() {
         func();
       });
@@ -758,10 +734,11 @@ class _FFloatContentState extends State<_FFloatContent>
   }
 
   void postUpdateCallback() {
-    WidgetsBinding.instance.addPostFrameCallback((time) {
+    WidgetsBinding.instance?.addPostFrameCallback((time) {
       if (!mounted) return;
-      RenderBox box = key.currentContext?.findRenderObject();
-      Size size = box?.size;
+      var r = key.currentContext?.findRenderObject();
+      RenderBox? box = r is RenderBox ? r : null;
+      Size? size = box?.size;
       if (size != null && areaSize != size) {
         areaSize = size;
         setState(() {});
@@ -774,19 +751,13 @@ class _FFloatContentState extends State<_FFloatContent>
     super.didUpdateWidget(oldWidget);
     location = widget.location;
     anchorSize = widget.anchorSize;
-//    if (animationController != null) {
-//      animationController.forward();
-//    }
+    //animationController.forward();
   }
 
   @override
   void dispose() {
-    if (widget.notifier != null) {
-      widget.notifier.removeListener(onNotifier);
-    }
-    if (animationController != null) {
-      animationController.dispose();
-    }
+    widget.notifier?.removeListener(onNotifier);
+    animationController.dispose();
     super.dispose();
   }
 
@@ -803,22 +774,14 @@ class _FFloatContentState extends State<_FFloatContent>
       color: widget.backgroundColor,
     );
     if (widget.onTouchBackground != null) {
-      background = GestureDetector(
-        onTap: widget.onTouchBackground,
-        child: background,
-      );
+      background = GestureDetector(onTap: widget.onTouchBackground, child: background);
     } else {
-      background = IgnorePointer(
-        child: background,
-      );
+      background = IgnorePointer(child: background);
     }
     children.add(background);
     Widget content = buildFloatContent();
     children.add(content);
-    return Stack(
-      overflow: Overflow.visible,
-      children: children,
-    );
+    return Stack(clipBehavior: Clip.none, children: children);
   }
 
   Widget buildFloatContent() {
@@ -827,10 +790,10 @@ class _FFloatContentState extends State<_FFloatContent>
     BorderRadius borderRadius = widget.corner == null
         ? BorderRadius.all(Radius.circular(0))
         : BorderRadius.only(
-            topLeft: Radius.circular(widget.corner.leftTopCorner),
-            topRight: Radius.circular(widget.corner.rightTopCorner),
-            bottomRight: Radius.circular(widget.corner.rightBottomCorner),
-            bottomLeft: Radius.circular(widget.corner.leftBottomCorner),
+            topLeft: Radius.circular(widget.corner!.leftTopCorner),
+            topRight: Radius.circular(widget.corner!.rightTopCorner),
+            bottomRight: Radius.circular(widget.corner!.rightBottomCorner),
+            bottomLeft: Radius.circular(widget.corner!.leftBottomCorner),
           );
     var sideColor = widget.strokeColor ?? Colors.transparent;
     var borderSide = BorderSide(
@@ -854,7 +817,7 @@ class _FFloatContentState extends State<_FFloatContent>
       shadows: widget.shadowColor != null && widget.shadowBlur != 0
           ? [
               BoxShadow(
-                color: widget.shadowColor,
+                color: widget.shadowColor!,
                 offset: widget.shadowOffset ?? Offset(0, 0),
                 blurRadius: widget.shadowBlur,
               )
@@ -865,12 +828,12 @@ class _FFloatContentState extends State<_FFloatContent>
       decoration: decoration,
       padding: widget.padding,
       key: key,
-      child: widget.builder != null ? widget.builder(setState) : Container(),
+      child: widget.builder != null ? widget.builder!(setState) : Container(),
     );
     children.add(content);
     if (areaSize != null) {
       double rotate = calculateTriangleRotate();
-      EdgeInsets triangleOffset = calculateTriangleOffset();
+      EdgeInsets triangleOffset = _calculateTriangleOffset();
       Widget triangle = Positioned(
         left: triangleOffset.left == 0 ? null : triangleOffset.left,
         top: triangleOffset.top == 0 ? null : triangleOffset.top,
@@ -902,10 +865,7 @@ class _FFloatContentState extends State<_FFloatContent>
           child: Transform.scale(
             scale: scaleAnimation.value,
             alignment: matchScaleAnim(widget.anchorSize == Size.zero),
-            child: Stack(
-              overflow: Overflow.visible,
-              children: children,
-            ),
+            child: Stack(clipBehavior: Clip.none, children: children),
           ),
         ),
       ),
@@ -941,7 +901,6 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightBottom:
         return Alignment.bottomLeft;
     }
-    return Alignment.center;
   }
 
   Offset calculateAreaOffset() {
@@ -954,19 +913,19 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.topLeft:
         return Offset(
               0,
-              -areaSize.height - widget.triangleHeight,
+              -areaSize!.height - widget.triangleHeight,
             ) +
             offset;
       case FFloatAlignment.topCenter:
         return Offset(
-              anchorSize.width / 2.0 - areaSize.width / 2.0,
-              -areaSize.height - widget.triangleHeight,
+              anchorSize.width / 2.0 - areaSize!.width / 2.0,
+              -areaSize!.height - widget.triangleHeight,
             ) +
             offset;
       case FFloatAlignment.topRight:
         return Offset(
-              anchorSize.width - areaSize.width,
-              -areaSize.height - widget.triangleHeight,
+              anchorSize.width - areaSize!.width,
+              -areaSize!.height - widget.triangleHeight,
             ) +
             offset;
       case FFloatAlignment.bottomLeft:
@@ -977,36 +936,36 @@ class _FFloatContentState extends State<_FFloatContent>
             offset;
       case FFloatAlignment.bottomCenter:
         return Offset(
-              anchorSize.width / 2.0 - areaSize.width / 2.0,
+              anchorSize.width / 2.0 - areaSize!.width / 2.0,
               anchorSize.height + widget.triangleHeight,
             ) +
             offset;
 
       case FFloatAlignment.bottomRight:
         return Offset(
-              anchorSize.width - areaSize.width,
+              anchorSize.width - areaSize!.width,
               anchorSize.height + widget.triangleHeight,
             ) +
             offset;
 
       case FFloatAlignment.leftTop:
         return Offset(
-              -areaSize.width - widget.triangleHeight,
+              -areaSize!.width - widget.triangleHeight,
               0,
             ) +
             offset;
 
       case FFloatAlignment.leftCenter:
         return Offset(
-              -areaSize.width - widget.triangleHeight,
-              anchorSize.height / 2.0 - areaSize.height / 2.0,
+              -areaSize!.width - widget.triangleHeight,
+              anchorSize.height / 2.0 - areaSize!.height / 2.0,
             ) +
             offset;
 
       case FFloatAlignment.leftBottom:
         return Offset(
-              -areaSize.width - widget.triangleHeight,
-              anchorSize.height - areaSize.height,
+              -areaSize!.width - widget.triangleHeight,
+              anchorSize.height - areaSize!.height,
             ) +
             offset;
 
@@ -1020,18 +979,17 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightCenter:
         return Offset(
               anchorSize.width + widget.triangleHeight,
-              anchorSize.height / 2.0 - areaSize.height / 2.0,
+              anchorSize.height / 2.0 - areaSize!.height / 2.0,
             ) +
             offset;
 
       case FFloatAlignment.rightBottom:
         return Offset(
               anchorSize.width + widget.triangleHeight,
-              anchorSize.height - areaSize.height,
+              anchorSize.height - areaSize!.height,
             ) +
             offset;
     }
-    return Offset.zero;
   }
 
   double calculateTriangleRotate() {
@@ -1053,10 +1011,10 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightBottom:
         return -pi / 2.0;
     }
-    return pi;
   }
 
-  EdgeInsets calculateTriangleOffset() {
+  EdgeInsets _calculateTriangleOffset() {
+    final areaSize = this.areaSize ?? Size(0, 0);
     Offset srcOffset = widget.triangleOffset;
     EdgeInsets offset = EdgeInsets.zero;
 
@@ -1076,9 +1034,7 @@ class _FFloatContentState extends State<_FFloatContent>
             break;
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
-              left: srcOffset.dx +
-                  areaSize.width / 2.0 -
-                  widget.triangleWidth / 2,
+              left: srcOffset.dx + areaSize.width / 2.0 - widget.triangleWidth / 2,
               bottom: bottom,
             );
             break;
@@ -1103,9 +1059,7 @@ class _FFloatContentState extends State<_FFloatContent>
             break;
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
-              left: srcOffset.dx +
-                  areaSize.width / 2.0 -
-                  widget.triangleWidth / 2,
+              left: srcOffset.dx + areaSize.width / 2.0 - widget.triangleWidth / 2,
               top: top,
             );
             break;
@@ -1120,12 +1074,8 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.leftTop:
       case FFloatAlignment.leftCenter:
       case FFloatAlignment.leftBottom:
-        double startTop = srcOffset.dy +
-            -widget.triangleHeight / 2.0 +
-            widget.triangleWidth / 2.0;
-        double right = -widget.triangleWidth / 2.0 -
-            widget.triangleHeight / 2.0 +
-            fixOffset;
+        double startTop = srcOffset.dy + -widget.triangleHeight / 2.0 + widget.triangleWidth / 2.0;
+        double right = -widget.triangleWidth / 2.0 - widget.triangleHeight / 2.0 + fixOffset;
         switch (widget.triangleAlignment) {
           case TriangleAlignment.start:
             offset = EdgeInsets.only(
@@ -1136,8 +1086,7 @@ class _FFloatContentState extends State<_FFloatContent>
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
               right: right,
-              top:
-                  startTop + areaSize.height / 2.0 - widget.triangleWidth / 2.0,
+              top: startTop + areaSize.height / 2.0 - widget.triangleWidth / 2.0,
             );
             break;
           case TriangleAlignment.end:
@@ -1151,12 +1100,8 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightTop:
       case FFloatAlignment.rightCenter:
       case FFloatAlignment.rightBottom:
-        double startTop = srcOffset.dy +
-            -widget.triangleHeight / 2.0 +
-            widget.triangleWidth / 2.0;
-        double left = -widget.triangleWidth / 2.0 -
-            widget.triangleHeight / 2.0 +
-            fixOffset;
+        double startTop = srcOffset.dy + -widget.triangleHeight / 2.0 + widget.triangleWidth / 2.0;
+        double left = -widget.triangleWidth / 2.0 - widget.triangleHeight / 2.0 + fixOffset;
         switch (widget.triangleAlignment) {
           case TriangleAlignment.start:
             offset = EdgeInsets.only(
@@ -1167,8 +1112,7 @@ class _FFloatContentState extends State<_FFloatContent>
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
               left: left,
-              top:
-                  startTop + areaSize.height / 2.0 - widget.triangleWidth / 2.0,
+              top: startTop + areaSize.height / 2.0 - widget.triangleWidth / 2.0,
             );
             break;
           case TriangleAlignment.end:
@@ -1185,18 +1129,16 @@ class _FFloatContentState extends State<_FFloatContent>
 }
 
 class _FFloatContentController {
-  _FFloatContentState state;
+  _FFloatContentState? state;
 
-
-  setState(VoidCallback fn){
+  setState(VoidCallback fn) {
     state?._setState(fn);
   }
 
-
-  update(Size anchorSize, Offset location) {
+  update(Size? anchorSize, Offset? location) {
     setState(() {
-      state.anchorSize = anchorSize;
-      state.location = location;
+      state?.anchorSize = anchorSize ?? Size.zero;
+      state?.location = location ?? Offset.zero;
     });
   }
 
@@ -1250,7 +1192,7 @@ enum FFloatCornerStyle {
 ///
 /// [FFloatController] can control [FFloat] display, hide, and sense state changes.
 class FFloatController {
-  VoidCallback _callback;
+  VoidCallback? _callback;
 
   bool _isShow = false;
 
@@ -1262,44 +1204,30 @@ class FFloatController {
   set isShow(bool value) {
     if (_isShow == value) return;
     _isShow = value;
-    if (_callback != null) {
-      _callback();
-    }
+    _callback?.call();
   }
 
 //  _FFloatState _state;
 
-  VoidCallback _show;
-  VoidCallback _dismiss;
-  VoidCallback _rebuildShow;
-  StateSetter _setState;
+  VoidCallback? _show;
+  VoidCallback? _dismiss;
+  VoidCallback? _rebuildShow;
+  StateSetter? _setState;
 
   /// 隐藏 [FFloat]
   ///
   /// Hide [FFloat]
-  void dismiss() {
-    if (_dismiss != null) {
-      _dismiss();
-    }
-  }
+  void dismiss() => _dismiss?.call();
 
   /// 显示 [FFloat]。如果已经显示，将不会再次重建。
   ///
   /// Show [FFloat]。If it is already displayed, it will not be rebuilt again.
-  void show() {
-    if (_show != null) {
-      _show();
-    }
-  }
+  void show() => _show?.call();
 
   /// 显示 [FFloat]。会重建。
   ///
   /// [FFloat] is displayed. Will rebuild.
-  void rebuildShow() {
-    if (_rebuildShow != null) {
-      _rebuildShow();
-    }
-  }
+  void rebuildShow() => _rebuildShow?.call();
 
   /// 销毁
   ///
@@ -1315,21 +1243,20 @@ class FFloatController {
     _callback = listener;
   }
 
-
-  setState(VoidCallback fn){
+  setState(VoidCallback fn) {
     _setState?.call(fn);
   }
 }
 
 class _TrianglePainter extends CustomPainter {
   Color color;
-  double strokeWidth;
-  Color strokeColor;
-  Gradient gradient;
+  double? strokeWidth;
+  Color? strokeColor;
+  Gradient? gradient;
 
   _TrianglePainter({
     this.color = _FFloatContent.DefaultColor,
-    this.strokeWidth = 0,
+    this.strokeWidth = 0.0,
     this.strokeColor,
     this.gradient,
   });
@@ -1341,15 +1268,14 @@ class _TrianglePainter extends CustomPainter {
     if (gradient != null) {
       paint
         ..isAntiAlias = true
-        ..strokeWidth = strokeWidth ?? 0
+        ..strokeWidth = strokeWidth ?? 0.0
         ..style = PaintingStyle.fill
-        ..shader =
-            gradient.createShader(Rect.fromLTRB(0, 0, size.width, size.height));
+        ..shader = gradient!.createShader(Rect.fromLTRB(0, 0, size.width, size.height));
     } else {
       paint
         ..isAntiAlias = true
         ..color = color
-        ..strokeWidth = strokeWidth ?? 0
+        ..strokeWidth = strokeWidth ?? 0.0
         ..style = PaintingStyle.fill;
     }
     Path path = Path();
@@ -1359,10 +1285,10 @@ class _TrianglePainter extends CustomPainter {
     path.close();
     canvas.drawPath(path, paint);
 
-    if (strokeColor != null && strokeWidth != null && strokeWidth > 0) {
+    if (strokeColor != null && strokeWidth != null && strokeWidth! > 0) {
       paint
         ..shader = null
-        ..color = strokeColor
+        ..color = strokeColor!
         ..style = PaintingStyle.stroke;
       canvas.drawPath(path, paint);
     }

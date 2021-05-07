@@ -1,12 +1,12 @@
 name: ffloat
 description: FFloat, although simple and easy to use, can satisfy all your imagination of the floating layer.
-version: 1.0.2
+version: 1.0.3
 author: CoorChice<coorchice.cb@alibaba-inc.com>
 homepage: https://github.com/Fliggy-Mobile/ffloat
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
