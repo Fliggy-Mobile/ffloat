@@ -327,7 +327,7 @@ class _FFloatState extends State<FFloat> {
   }
 
   void postUpdateCallback() {
-    WidgetsBinding.instance?.addPostFrameCallback((time) {
+    WidgetsBinding.instance.addPostFrameCallback((time) {
       if (!mounted) return;
       var r = key.currentContext?.findRenderObject();
       RenderBox? box = r is RenderBox ? r : null;
@@ -363,7 +363,7 @@ class _FFloatState extends State<FFloat> {
     if (_float != null) {
       asyncParams();
       if (_float!.isShow) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           if (!mounted) return;
           _float?._showFloat();
         });
@@ -484,6 +484,7 @@ class _FFloat {
   _FFloat(
     this.context,
     this.builder, {
+    // ignore: unused_element
     this.child,
     this.location,
     this.margin = EdgeInsets.zero,
@@ -734,7 +735,7 @@ class _FFloatContentState extends State<_FFloatContent> with TickerProviderState
   }
 
   void postUpdateCallback() {
-    WidgetsBinding.instance?.addPostFrameCallback((time) {
+    WidgetsBinding.instance.addPostFrameCallback((time) {
       if (!mounted) return;
       var r = key.currentContext?.findRenderObject();
       RenderBox? box = r is RenderBox ? r : null;
