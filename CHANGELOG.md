@@ -1,3 +1,6 @@
+## 2.0.0
+-  适配 3.7
+
 ## 1.0.2
 
 - FFloatController adds setState function to support external partial refresh of FFloat content
