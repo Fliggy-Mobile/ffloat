@@ -677,7 +677,7 @@ class _FFloatContent extends StatefulWidget {
     this.padding,
     this.color = DefaultColor,
     this.strokeColor,
-    this.strokeWidth = 0.0,
+    this.strokeWidth = 1.0,
     this.corner,
     this.cornerStyle = FFloatCornerStyle.round,
     this.backgroundColor = Colors.transparent,
