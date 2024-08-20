@@ -895,8 +895,8 @@ class _FFloatContentState extends State<_FFloatContent>
     }
     Offset areaOffset = calculateAreaOffset();
     Widget floatContent = Positioned(
-      left: location?.dx ?? 0 + areaOffset.dx,
-      top: location?.dy ?? 0 + areaOffset.dy,
+      left: (location?.dx ?? 0) + areaOffset.dx,
+      top: (location?.dy ?? 0) + areaOffset.dy,
       child: Offstage(
         offstage: areaSize == null,
         child: Material(
@@ -952,6 +952,8 @@ class _FFloatContentState extends State<_FFloatContent>
       widget.margin.left - widget.margin.right,
       widget.margin.top - widget.margin.bottom,
     );
+    print("areaSize: $areaSize");
+    print("offset: $offset");
     switch (widget.alignment) {
       case FFloatAlignment.topLeft:
         return Offset(
@@ -961,7 +963,7 @@ class _FFloatContentState extends State<_FFloatContent>
             offset;
       case FFloatAlignment.topCenter:
         return Offset(
-              anchorSize!.width / 2.0 - areaSize!.width / 2.0,
+              (anchorSize!.width / 2.0) - (areaSize!.width / 2.0),
               -areaSize!.height - widget.triangleHeight,
             ) +
             offset;
@@ -979,7 +981,7 @@ class _FFloatContentState extends State<_FFloatContent>
             offset;
       case FFloatAlignment.bottomCenter:
         return Offset(
-              anchorSize!.width / 2.0 - areaSize!.width / 2.0,
+              (anchorSize!.width / 2.0) - (areaSize!.width / 2.0),
               anchorSize!.height + widget.triangleHeight,
             ) +
             offset;
@@ -1001,7 +1003,7 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.leftCenter:
         return Offset(
               -areaSize!.width - widget.triangleHeight,
-              anchorSize!.height / 2.0 - areaSize!.height / 2.0,
+              (anchorSize!.height / 2.0) - (areaSize!.height / 2.0),
             ) +
             offset;
 
@@ -1022,7 +1024,7 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightCenter:
         return Offset(
               anchorSize!.width + widget.triangleHeight,
-              anchorSize!.height / 2.0 - areaSize!.height / 2.0,
+              (anchorSize!.height / 2.0) - (areaSize!.height / 2.0),
             ) +
             offset;
 
@@ -1079,8 +1081,8 @@ class _FFloatContentState extends State<_FFloatContent>
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
               left: srcOffset.dx +
-                  areaSize!.width / 2.0 -
-                  widget.triangleWidth / 2,
+                  (areaSize!.width / 2.0) -
+                  (widget.triangleWidth / 2),
               bottom: bottom,
             );
             break;
@@ -1106,8 +1108,8 @@ class _FFloatContentState extends State<_FFloatContent>
           case TriangleAlignment.center:
             offset = EdgeInsets.only(
               left: srcOffset.dx +
-                  areaSize!.width / 2.0 -
-                  widget.triangleWidth / 2,
+                  (areaSize!.width / 2.0) -
+                  (widget.triangleWidth / 2),
               top: top,
             );
             break;
@@ -1123,10 +1125,10 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.leftCenter:
       case FFloatAlignment.leftBottom:
         double startTop = srcOffset.dy +
-            -widget.triangleHeight / 2.0 +
-            widget.triangleWidth / 2.0;
-        double right = -widget.triangleWidth / 2.0 -
-            widget.triangleHeight / 2.0 +
+            (-widget.triangleHeight / 2.0) +
+            (widget.triangleWidth / 2.0);
+        double right = (-widget.triangleWidth / 2.0) -
+            (widget.triangleHeight / 2.0) +
             fixOffset;
         switch (widget.triangleAlignment) {
           case TriangleAlignment.start:
@@ -1139,7 +1141,7 @@ class _FFloatContentState extends State<_FFloatContent>
             offset = EdgeInsets.only(
               right: right,
               top:
-                  startTop + areaSize!.height / 2.0 - widget.triangleWidth / 2.0,
+                  startTop + (areaSize!.height / 2.0) - (widget.triangleWidth / 2.0),
             );
             break;
           case TriangleAlignment.end:
@@ -1154,10 +1156,10 @@ class _FFloatContentState extends State<_FFloatContent>
       case FFloatAlignment.rightCenter:
       case FFloatAlignment.rightBottom:
         double startTop = srcOffset.dy +
-            -widget.triangleHeight / 2.0 +
-            widget.triangleWidth / 2.0;
-        double left = -widget.triangleWidth / 2.0 -
-            widget.triangleHeight / 2.0 +
+            (-widget.triangleHeight / 2.0) +
+            (widget.triangleWidth / 2.0);
+        double left = (-widget.triangleWidth / 2.0) -
+            (widget.triangleHeight / 2.0) +
             fixOffset;
         switch (widget.triangleAlignment) {
           case TriangleAlignment.start:
@@ -1170,7 +1172,7 @@ class _FFloatContentState extends State<_FFloatContent>
             offset = EdgeInsets.only(
               left: left,
               top:
-                  startTop + areaSize!.height / 2.0 - widget.triangleWidth / 2.0,
+                  startTop + (areaSize!.height / 2.0) - (widget.triangleWidth / 2.0),
             );
             break;
           case TriangleAlignment.end:
