@@ -1,7 +1,7 @@
 ---
 # 文档可用dumi的markdown增强语法（https://d.umijs.org/guide/markdown）
 title: ffloat
-subtitle: 简单易用的
+subtitle: 简单易用，精美的浮层组件
 toc: content
 group:
   title: 样式 # 此处填写：组件所属的分组："通用","工具","样式","布局","导航","弹窗","数据录入","数据展示","反馈","其他"
