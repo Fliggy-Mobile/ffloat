@@ -39,7 +39,7 @@
     <img height="20" src="https://img.shields.io/badge/API-done-yellowgreen.svg">
 </a>
 
-<a href="http://www.apache.org/licenses/LICENSE-2.0.txt">
+<a href="https://www.apache.org/licenses/LICENSE-2.0.txt">
    <img height="20" src="https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg">
 </a>
 
