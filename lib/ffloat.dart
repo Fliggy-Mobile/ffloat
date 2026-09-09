@@ -867,7 +867,7 @@ class _FFloatContentState extends State<_FFloatContent>
               BoxShadow(
                 color: widget.shadowColor ?? const Color(0xFF000000),
                 offset: widget.shadowOffset ?? Offset(0, 0),
-                blurRadius: widget.shadowBlur ?? 0.0,
+                blurRadius: widget.shadowBlur,
               )
             ]
           : null,
@@ -890,7 +890,7 @@ class _FFloatContentState extends State<_FFloatContent>
         child: Transform.rotate(
           angle: rotate,
           child: CustomPaint(
-            size: Size(widget.triangleWidth ?? 0, widget.triangleHeight ?? 0),
+            size: Size(widget.triangleWidth, widget.triangleHeight),
             painter: (widget.strokeWidth != null && widget.strokeWidth! > 0)
                 ? _TrianglePainter(
                     gradient: widget.gradient,
@@ -963,8 +963,6 @@ class _FFloatContentState extends State<_FFloatContent>
       widget.margin.left - widget.margin.right,
       widget.margin.top - widget.margin.bottom,
     );
-    print("areaSize: $areaSize");
-    print("offset: $offset");
     switch (widget.alignment) {
       case FFloatAlignment.topLeft:
         return Offset(

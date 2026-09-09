@@ -1,7 +1,8 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ffloat/ffloat.dart';
 
 void main() {
-
+  test('placeholder', () {
+    // No coverage yet. See the repository issues for the tracking discussion.
+    expect(1, 1);
+  });
 }
