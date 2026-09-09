@@ -522,6 +522,7 @@ class _FFloat {
       }
     });
     ffloatContentController = new _FFloatContentController();
+    controller?._owner = this;
     controller?._show = () {
       show();
     };
@@ -545,7 +546,17 @@ class _FFloat {
   }
 
   void dispose() {
-    controller?.dispose();
+    // Overlay.of(context) 取到的是最近的 Overlay，在 MaterialApp 下即根
+    // navigator 的全局 Overlay，它的生命周期比当前页面长。若浮层正在显示时
+    // 本对象被销毁而不移除 entry，浮层会残留在屏幕上并被带进后续页面。
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+    _isShow = false;
+    // 用 owner 守卫解绑：widget 重建时新实例可能已先完成绑定，
+    // 此时旧实例的 dispose 不应把新绑定清掉。
+    controller?._detach(this);
     ffloatContentController?.dispose();
     if (dismissTimer != null && dismissTimer!.isActive) {
       dismissTimer!.cancel();
@@ -1276,6 +1287,26 @@ class FFloatController {
   VoidCallback? _rebuildShow;
   StateSetter? _setState;
 
+  /// 当前持有绑定的内部实现实例。用于在 widget 重建时区分「旧实例的解绑」
+  /// 与「新实例的绑定」，避免旧实例 dispose 时把新绑定一起清掉。
+  Object? _owner;
+
+  /// 解除绑定，但仅当 [owner] 仍是当前绑定者时才生效。
+  void _detach(Object owner) {
+    if (!identical(_owner, owner)) return;
+    _unbind();
+  }
+
+  void _unbind() {
+    _owner = null;
+    _callback = null;
+    _show = null;
+    _dismiss = null;
+    _rebuildShow = null;
+    _setState = null;
+    _isShow = false;
+  }
+
   /// 隐藏 [FFloat]
   ///
   /// Hide [FFloat]
@@ -1303,11 +1334,20 @@ class FFloatController {
     }
   }
 
-  /// 销毁
+  /// 销毁。解除与 [FFloat] 内部实现的绑定，并重置显示状态。
   ///
-  /// destroy
+  /// 绑定若不清除，[FFloat] 所在 widget 被销毁后，controller 仍会持有指向
+  /// 已失效实例的闭包；此时调用 [dismiss] / [show] 会作用在一个已经不再
+  /// 连着 Overlay 的对象上，表现为「调用了但界面没反应」。
+  ///
+  /// Destroy. Releases the bindings to the [FFloat] internals and resets the
+  /// visibility flag.
+  ///
+  /// Without this, a controller outliving its [FFloat] widget keeps closures
+  /// pointing at a dead instance, so [dismiss] / [show] silently act on an
+  /// object that is no longer attached to any Overlay.
   dispose() {
-//    _callback = null;
+    _unbind();
   }
 
   /// 设置监听。当 [FFloat] 显示状态发生变化的时候会回调。
