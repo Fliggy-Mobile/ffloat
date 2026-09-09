@@ -13,7 +13,7 @@
 
 <p>Born and elegant, supporting precise position control. Triangles with rounded corners, borders, gradients, shadows? Everything you need 😃.️</p>
 
-<p><strong>Author：<a href="https://github.com/chenBingX">Newton</a>(<a href="coorchice.cb@alibaba-inc.com">coorchice.cb@alibaba-inc.com</a>)</strong></p>
+<p><strong>Author：<a href="https://github.com/chenBingX">Newton</a></strong></p>
 
 <p>
 
@@ -436,7 +436,7 @@ dependencies:
 # 💡 License
 
 ```
-Copyright 2020-present Fliggy Android Team <alitrip_android@list.alibaba-inc.com>.
+Copyright 2020-present Fliggy Android Team.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
